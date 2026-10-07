@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="success">
     <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
@@ -9,10 +9,7 @@
 
 <ion-content class="ion-padding">
   <ion-list *ngIf="transactions.length > 0">
-    <ion-item
-      button
-      detail
-      *ngFor="let transaction of transactions"
+    <ion-item button detail *ngFor="let transaction of transactions"
       [routerLink]="['/tabs/transaction-detail', transaction.id]">
 
       <ion-icon name="receipt-outline" slot="start" color="success"></ion-icon>

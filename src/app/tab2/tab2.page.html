@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="success">
     <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
@@ -18,10 +18,7 @@
   </ion-toolbar>
 
   <ion-toolbar>
-    <ion-searchbar
-      [(ngModel)]="searchTerm"
-      placeholder="Cari nama atau kategori produk"
-      aria-label="Cari produk">
+    <ion-searchbar [(ngModel)]="searchTerm" placeholder="Cari nama atau kategori produk" aria-label="Cari produk">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
@@ -32,10 +29,7 @@
     Tambah Produk
   </ion-button>
 
-  <ion-note
-    color="success"
-    *ngIf="message"
-    class="product-message">
+  <ion-note color="success" *ngIf="message" class="product-message">
     {{ message }}
   </ion-note>
 
@@ -45,26 +39,14 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col
-        size="12"
-        size-sm="6"
-        size-lg="4"
-        *ngFor="let product of filteredProducts; let i = index">
+      <ion-col size="12" size-sm="6" size-lg="4" *ngFor="let product of filteredProducts; let i = index">
 
-        <ion-card
-          class="product-card"
-          [style.animation-delay]="(i * 70) + 'ms'">
+        <ion-card class="product-card" [style.animation-delay]="(i * 70) + 'ms'">
 
-          <ion-item
-            button
-            detail
-            [routerLink]="['/tabs/product-detail', product.id]">
+          <ion-item button detail [routerLink]="['/tabs/product-detail', product.id]">
 
             <ion-thumbnail slot="start">
-              <img
-                [src]="product.image"
-                [alt]="product.name"
-                (error)="onProductImageError($event)">
+              <img [src]="product.image" [alt]="product.name" (error)="onProductImageError($event)">
             </ion-thumbnail>
 
             <ion-label>
@@ -79,27 +61,17 @@
           </ion-item>
 
           <ion-card-content>
-            <ion-button
-              expand="block"
-              fill="outline"
-              [routerLink]="['/tabs/product-form', product.id]">
+            <ion-button expand="block" fill="outline" [routerLink]="['/tabs/product-form', product.id]">
               <ion-icon name="create-outline" slot="start"></ion-icon>
               Edit Produk
             </ion-button>
 
-            <ion-button
-              expand="block"
-              [disabled]="product.stock === 0"
-              (click)="addToCart(product)">
+            <ion-button expand="block" [disabled]="product.stock === 0" (click)="addToCart(product)">
               <ion-icon name="cart-outline" slot="start"></ion-icon>
               Tambah ke Keranjang
             </ion-button>
 
-            <ion-button
-              expand="block"
-              fill="outline"
-              color="danger"
-              (click)="confirmDelete(product)">
+            <ion-button expand="block" fill="outline" color="danger" (click)="confirmDelete(product)">
               <ion-icon name="trash-outline" slot="start"></ion-icon>
               Hapus Produk
             </ion-button>
