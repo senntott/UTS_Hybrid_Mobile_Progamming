@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { CartItem } from '../models/cart-item';
 import { Product } from '../models/product';
 import { ProductService } from './product';
@@ -9,7 +10,14 @@ import { ProductService } from './product';
 export class CartService {
   private readonly storageKey = 'simobile-cart';
 
-  constructor(private productService: ProductService) {}
+  private readonly itemsSubject =
+    new BehaviorSubject<CartItem[]>([]);
+
+  readonly items$ = this.itemsSubject.asObservable();
+
+  constructor(private productService: ProductService) {
+    this.itemsSubject.next(this.loadItems());
+  }
 
   getItems(): CartItem[] {
     return this.loadItems().map(item => ({ ...item }));
@@ -111,6 +119,9 @@ export class CartService {
   }
 
   private saveItems(items: CartItem[]): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(items));
+    const copy = items.map(item => ({ ...item }));
+
+    localStorage.setItem(this.storageKey, JSON.stringify(copy));
+    this.itemsSubject.next(copy);
   }
 }

@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ProductService } from '../services/product';
 import { TransactionService } from '../services/transaction';
 
@@ -8,26 +14,46 @@ import { TransactionService } from '../services/transaction';
   styleUrls: ['tab1.page.scss'],
   standalone: false
 })
-export class Tab1Page implements OnInit {
+export class Tab1Page implements OnInit, OnDestroy {
   totalProduk = 0;
   totalTransaksiHariIni = 0;
   produkTerlaris = 'Belum ada transaksi';
 
+  private productSubscription?: Subscription;
+  private transactionSubscription?: Subscription;
+
   constructor(
     private productService: ProductService,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.loadDashboard();
+    this.productSubscription =
+      this.productService.products$.subscribe(products => {
+        this.totalProduk = products.length;
+        this.changeDetector.markForCheck();
+      });
+
+    this.transactionSubscription =
+      this.transactionService.transactions$.subscribe(() => {
+        this.loadTransactionSummary();
+        this.changeDetector.markForCheck();
+      });
   }
 
   ionViewWillEnter(): void {
-    this.loadDashboard();
+    this.totalProduk = this.productService.getProducts().length;
+    this.loadTransactionSummary();
+    this.changeDetector.markForCheck();
   }
 
-  private loadDashboard(): void {
-    this.totalProduk = this.productService.getProducts().length;
+  ngOnDestroy(): void {
+    this.productSubscription?.unsubscribe();
+    this.transactionSubscription?.unsubscribe();
+  }
+
+  private loadTransactionSummary(): void {
     this.totalTransaksiHariIni =
       this.transactionService.getTotalTransactionsToday();
     this.produkTerlaris =

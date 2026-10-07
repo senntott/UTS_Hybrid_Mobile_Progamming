@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Product } from '../models/product';
 import { CartService } from '../services/cart';
 import { ProductService } from '../services/product';
@@ -9,19 +15,45 @@ import { ProductService } from '../services/product';
   styleUrls: ['tab2.page.scss'],
   standalone: false
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit, OnDestroy {
   products: Product[] = [];
   searchTerm = '';
   cartCount = 0;
   message = '';
 
+  private productSubscription?: Subscription;
+  private cartSubscription?: Subscription;
+
   constructor(
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
+  ngOnInit(): void {
+    this.productSubscription =
+      this.productService.products$.subscribe(products => {
+        this.products = products;
+        this.changeDetector.markForCheck();
+      });
+
+    this.cartSubscription =
+      this.cartService.items$.subscribe(items => {
+        this.cartCount = items.reduce((count, item) => count + item.qty, 0);
+        this.changeDetector.markForCheck();
+      });
+  }
+
   ionViewWillEnter(): void {
-    this.loadProducts();
+    this.products = this.productService.getProducts();
+    this.cartCount = this.cartService.getItemCount();
+    this.message = '';
+    this.changeDetector.markForCheck();
+  }
+
+  ngOnDestroy(): void {
+    this.productSubscription?.unsubscribe();
+    this.cartSubscription?.unsubscribe();
   }
 
   get filteredProducts(): Product[] {
@@ -43,12 +75,5 @@ export class Tab2Page {
     this.message = added
       ? `${product.name} ditambahkan ke keranjang.`
       : `Stok ${product.name} habis atau sudah mencapai batas stok.`;
-
-    this.cartCount = this.cartService.getItemCount();
-  }
-
-  private loadProducts(): void {
-    this.products = this.productService.getProducts();
-    this.cartCount = this.cartService.getItemCount();
   }
 }

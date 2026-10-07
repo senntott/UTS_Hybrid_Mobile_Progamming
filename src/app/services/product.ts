@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Product } from '../models/product';
 
 @Injectable({
@@ -19,6 +20,15 @@ export class ProductService {
     { id: 9, name: 'Sabun Mandi', category: 'Perawatan', buyPrice: 3500, sellPrice: 5000, stock: 0 },
     { id: 10, name: 'Air Mineral 600 ml', category: 'Minuman', buyPrice: 2500, sellPrice: 4000, stock: 30 }
   ];
+
+  private readonly productsSubject =
+    new BehaviorSubject<Product[]>([]);
+
+  readonly products$ = this.productsSubject.asObservable();
+
+  constructor() {
+    this.productsSubject.next(this.loadProducts());
+  }
 
   getProducts(): Product[] {
     return this.loadProducts().map(product => ({ ...product }));
@@ -82,7 +92,7 @@ export class ProductService {
           return parsedProducts as Product[];
         }
       } catch {
-        
+        // Data tidak valid akan diganti dengan data awal.
       }
     }
 
@@ -91,6 +101,9 @@ export class ProductService {
   }
 
   private saveProducts(products: Product[]): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(products));
+    const copy = products.map(product => ({ ...product }));
+
+    localStorage.setItem(this.storageKey, JSON.stringify(copy));
+    this.productsSubject.next(copy);
   }
 }

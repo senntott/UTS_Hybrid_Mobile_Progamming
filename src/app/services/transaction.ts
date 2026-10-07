@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Transaction } from '../models/transaction';
 
 @Injectable({
@@ -6,6 +7,15 @@ import { Transaction } from '../models/transaction';
 })
 export class TransactionService {
   private readonly storageKey = 'simobile-transactions';
+
+  private readonly transactionsSubject =
+    new BehaviorSubject<Transaction[]>([]);
+
+  readonly transactions$ = this.transactionsSubject.asObservable();
+
+  constructor() {
+    this.transactionsSubject.next(this.getTransactions());
+  }
 
   getTransactions(): Transaction[] {
     return this.loadTransactions()
@@ -67,8 +77,10 @@ export class TransactionService {
 
     for (const transaction of this.getTransactionsToday()) {
       for (const item of transaction.items) {
-        const currentQuantity = quantities.get(item.name) ?? 0;
-        quantities.set(item.name, currentQuantity + item.qty);
+        quantities.set(
+          item.name,
+          (quantities.get(item.name) ?? 0) + item.qty
+        );
       }
     }
 
@@ -119,5 +131,6 @@ export class TransactionService {
 
   private saveTransactions(transactions: Transaction[]): void {
     localStorage.setItem(this.storageKey, JSON.stringify(transactions));
+    this.transactionsSubject.next(this.getTransactions());
   }
 }
