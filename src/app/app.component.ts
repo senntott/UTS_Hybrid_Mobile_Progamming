@@ -8,9 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   constructor() {
-    const darkModeEnabled =
-      localStorage.getItem('simobile-dark-mode') === 'true';
-
-    document.body.classList.toggle('dark', darkModeEnabled);
+    localStorage.setItem('simobile-dark-mode', 'false');
+    document.body.classList.remove('dark');
   }
 }
