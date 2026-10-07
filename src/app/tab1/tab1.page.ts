@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product';
+import { TransactionService } from '../services/transaction';
 
 @Component({
   selector: 'app-tab1',
@@ -12,9 +13,24 @@ export class Tab1Page implements OnInit {
   totalTransaksiHariIni = 0;
   produkTerlaris = 'Belum ada transaksi';
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private transactionService: TransactionService
+  ) {}
 
   ngOnInit(): void {
-    this.totalProduk = this.productService.getTotalProducts();
+    this.loadDashboard();
+  }
+
+  ionViewWillEnter(): void {
+    this.loadDashboard();
+  }
+
+  private loadDashboard(): void {
+    this.totalProduk = this.productService.getProducts().length;
+    this.totalTransaksiHariIni =
+      this.transactionService.getTotalTransactionsToday();
+    this.produkTerlaris =
+      this.transactionService.getBestSellingProductToday();
   }
 }

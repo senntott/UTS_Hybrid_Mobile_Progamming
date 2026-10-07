@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Detail Produk</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ng-container *ngIf="product as item; else productNotFound">
+    <ion-card>
+      <img
+        [src]="item.image || 'assets/empty-product.svg'"
+        [alt]="item.name"
+        style="width: 100%; max-height: 260px; object-fit: contain;"
+      />
+
+      <ion-card-header>
+        <ion-card-subtitle>{{ item.category }}</ion-card-subtitle>
+        <ion-card-title>{{ item.name }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>Stok tersisa</ion-label>
+            <ion-badge [color]="item.stock > 0 ? 'success' : 'danger'">
+              {{ item.stock }}
+            </ion-badge>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Harga beli</ion-label>
+            <ion-note slot="end">
+              Rp{{ item.buyPrice | number:'1.0-0' }}
+            </ion-note>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Harga jual</ion-label>
+            <ion-note slot="end">
+              Rp{{ item.sellPrice | number:'1.0-0' }}
+            </ion-note>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Perkiraan untung per barang</ion-label>
+            <ion-note slot="end" color="success">
+              Rp{{ estimatedProfit | number:'1.0-0' }}
+            </ion-note>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ng-template #productNotFound>
+    <ion-card>
+      <ion-card-content>
+        Produk tidak ditemukan. Kembali ke halaman Produk dan pilih produk
+        yang tersedia.
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>
