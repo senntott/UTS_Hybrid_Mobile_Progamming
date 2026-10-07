@@ -31,5 +31,10 @@ Pastikan Node.js dan Ionic CLI sudah terpasang. Buka terminal di folder project 
 Jalankan perintah berikut satu per satu:
 
 ```bash
+Download file ZIP project SIMOBILE.
+Extract ZIP tersebut.
+Buka terminal pada folder project SIMOBILE.
+Pastikan path terminal sudah berada di folder yang berisi file package.json.
+Jalankan perintah berikut satu per satu:
 npm install
 ionic serve
