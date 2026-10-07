@@ -28,6 +28,16 @@ const routes: Routes = [
           import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
       {
+        path: 'settings',
+        loadChildren: () =>
+          import('../settings/settings.module').then(m => m.SettingsPageModule)
+      },
+      {
+        path: 'about',
+        loadChildren: () =>
+          import('../about/about.module').then(m => m.AboutPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
