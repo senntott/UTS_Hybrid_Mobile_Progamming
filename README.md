@@ -356,12 +356,4 @@ npm test
 **Bahasa Pemrograman:** TypeScript
 **Penyimpanan:** LocalStorage
 
-## Author
-
-**Louis Michael Tjoeng**
-=======
-6. Setelah proses selesai, buka alamat yang ditampilkan pada terminal, biasanya:
-http://localhost:8100
-7. Untuk menghentikan aplikasi, tekan:
-Ctrl + C
 >>>>>>> 80625e2bf4a862346c811b8cb8d439f009d7ee5b
