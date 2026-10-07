@@ -23,6 +23,17 @@ const routes: Routes = [
           import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },
       {
+        path: 'product-detail/:id',
+        loadChildren: () =>
+          import('../product-detail/product-detail.module')
+            .then(m => m.ProductDetailPageModule)
+      },
+      {
+        path: 'cart',
+        loadChildren: () =>
+          import('../cart/cart.module').then(m => m.CartPageModule)
+      },
+      {
         path: 'profile',
         loadChildren: () =>
           import('../profile/profile.module').then(m => m.ProfilePageModule)
@@ -54,4 +65,4 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)]
 })
-export class TabsPageRoutingModule { }
+export class TabsPageRoutingModule {}

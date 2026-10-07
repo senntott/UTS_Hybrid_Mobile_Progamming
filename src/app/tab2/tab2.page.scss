@@ -1,0 +1,19 @@
+.product-card {
+  height: 100%;
+  margin: 8px 0;
+}
+
+ion-thumbnail {
+  --size: 72px;
+  --border-radius: 10px;
+}
+
+ion-thumbnail img {
+  object-fit: contain;
+  background: var(--ion-color-light);
+}
+
+.cart-count {
+  display: block;
+  margin: 8px 4px 12px;
+}
