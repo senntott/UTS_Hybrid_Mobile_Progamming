@@ -30,11 +30,14 @@ Pastikan Node.js dan Ionic CLI sudah terpasang. Buka terminal di folder project 
 
 Jalankan perintah berikut satu per satu:
 
-```bash
-Download file ZIP project SIMOBILE.
-Extract ZIP tersebut.
-Buka terminal pada folder project SIMOBILE.
-Pastikan path terminal sudah berada di folder yang berisi file package.json.
-Jalankan perintah berikut satu per satu:
+1. Download file ZIP project SIMOBILE.
+2. Extract file ZIP tersebut.
+3.Buka terminal pada folder project SIMOBILE.
+4. Pastikan posisi terminal berada di folder yang berisi file package.json.
+5. Jalankan perintah berikut satu per satu:
 npm install
 ionic serve
+6. Setelah proses selesai, buka alamat yang ditampilkan pada terminal, biasanya:
+http://localhost:8100
+7. Untuk menghentikan aplikasi, tekan:
+Ctrl + C
