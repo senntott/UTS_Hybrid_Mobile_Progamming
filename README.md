@@ -7,10 +7,13 @@ Aplikasi kasir toko berbasis Ionic dan Angular. Data produk, keranjang, dan tran
 - Dashboard jumlah produk, transaksi hari ini, dan produk terlaris
 - Daftar produk dengan pencarian
 - Detail produk, harga, dan stok
-- Tambah dan edit produk dengan validasi form
+- Tambah, edit, dan hapus produk
+- Form produk dengan validasi
 - Keranjang belanja dan checkout
-- Riwayat transaksi dan detail transaksi
+- Popup konfirmasi pembayaran berhasil
+- Riwayat dan detail transaksi
 - Profil toko, pengaturan tema, dan halaman About
+- Animasi pada kartu produk dan pesan keranjang
 
 ## Teknologi
 
@@ -19,12 +22,14 @@ Aplikasi kasir toko berbasis Ionic dan Angular. Data produk, keranjang, dan tran
 - TypeScript
 - LocalStorage
 
+## Persiapan
+
+Pastikan Node.js dan Ionic CLI sudah terpasang. Buka terminal di folder project yang berisi file `package.json`.
+
 ## Cara menjalankan
 
-1. Pastikan Node.js dan Ionic CLI sudah terpasang.
-2. Buka terminal di folder project, yaitu folder yang berisi `package.json`.
-3. Jalankan:
+Jalankan perintah berikut satu per satu:
 
-   ```bash
-   npm install
-   ionic serve
+```bash
+npm install
+ionic serve
