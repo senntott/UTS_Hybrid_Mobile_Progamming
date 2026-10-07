@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
+import { AlertController } from '@ionic/angular/lazy';
 import { Subscription } from 'rxjs';
 import { CartItem } from '../models/cart-item';
 import { CartService } from '../services/cart';
@@ -27,8 +28,9 @@ export class CartPage implements OnInit, OnDestroy {
     private cartService: CartService,
     private productService: ProductService,
     private transactionService: TransactionService,
+    private alertController: AlertController,
     private changeDetector: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.cartSubscription =
@@ -112,15 +114,32 @@ export class CartPage implements OnInit, OnDestroy {
     }
 
     this.cartService.clearCart();
-
-    this.message = `Transaksi #${transaction.id} berhasil disimpan.`;
+    this.message = '';
     this.changeDetector.markForCheck();
 
-    window.alert(
-      `Pembayaran berhasil!\n\n` +
-      `Nomor transaksi: #${transaction.id}\n` +
-      `Total pembayaran: Rp${total.toLocaleString('id-ID')}\n\n` +
-      `Transaksi sudah tersimpan di riwayat.`
-    );
+    void this.showPaymentSuccess(transaction.id, total);
   }
-} 
+
+  private async showPaymentSuccess(
+    transactionId: number,
+    total: number
+  ): Promise<void> {
+    const alert = await this.alertController.create({
+      header: '✅ Pembayaran Berhasil',
+      subHeader: `Transaksi #${transactionId}`,
+      message:
+        `Total pembayaran: Rp${total.toLocaleString('id-ID')}<br><br>` +
+        `Transaksi sudah tersimpan di riwayat.`,
+      buttons: [
+        {
+          text: 'Selesai',
+          role: 'confirm'
+        }
+      ],
+      backdropDismiss: false,
+      cssClass: 'payment-success-alert'
+    });
+
+    await alert.present();
+  }
+}

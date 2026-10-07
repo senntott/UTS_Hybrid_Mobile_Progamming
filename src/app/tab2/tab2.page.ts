@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
+import { AlertController } from '@ionic/angular/lazy';
 import { Subscription } from 'rxjs';
 import { Product } from '../models/product';
 import { CartService } from '../services/cart';
@@ -27,8 +28,9 @@ export class Tab2Page implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
+    private alertController: AlertController,
     private changeDetector: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.productSubscription =
@@ -81,5 +83,39 @@ export class Tab2Page implements OnInit, OnDestroy {
     this.message = added
       ? `${product.name} ditambahkan ke keranjang.`
       : `Stok ${product.name} habis atau sudah mencapai batas stok.`;
+  }
+
+  async confirmDelete(product: Product): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Hapus Produk?',
+      message: `Yakin ingin menghapus produk "${product.name}"?`,
+      buttons: [
+        {
+          text: 'Batal',
+          role: 'cancel'
+        },
+        {
+          text: 'Hapus',
+          role: 'destructive'
+        }
+      ],
+      backdropDismiss: false
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+
+    if (role !== 'destructive') {
+      return;
+    }
+
+    const deleted = this.productService.deleteProduct(product.id);
+
+    this.message = deleted
+      ? `${product.name} berhasil dihapus.`
+      : 'Produk gagal dihapus.';
+
+    this.changeDetector.markForCheck();
   }
 }
