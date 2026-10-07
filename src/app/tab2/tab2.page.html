@@ -29,7 +29,7 @@
     Tambah Produk
   </ion-button>
 
-  <ion-note color="success" *ngIf="message">
+  <ion-note color="success" *ngIf="message" class="product-message">
     {{ message }}
   </ion-note>
 
@@ -39,10 +39,12 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="12" size-sm="6" size-lg="4" *ngFor="let product of filteredProducts">
+      <ion-col size="12" size-sm="6" size-lg="4" *ngFor="let product of filteredProducts; let i = index">
 
-        <ion-card class="product-card">
+        <ion-card class="product-card" [style.animation-delay]="(i * 70) + 'ms'">
+
           <ion-item button detail [routerLink]="['/tabs/product-detail', product.id]">
+
             <ion-thumbnail slot="start">
               <img [src]="product.image" [alt]="product.name" (error)="onProductImageError($event)">
             </ion-thumbnail>

@@ -28,7 +28,7 @@ export class Tab2Page implements OnInit, OnDestroy {
     private productService: ProductService,
     private cartService: CartService,
     private changeDetector: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.productSubscription =
@@ -70,10 +70,10 @@ export class Tab2Page implements OnInit, OnDestroy {
   }
 
   onProductImageError(event: Event): void {
-  const image = event.target as HTMLImageElement;
-  image.onerror = null;
-  image.src = 'https://placehold.co/120x120?text=Gambar+Tidak+Tersedia';
-}
+    const image = event.target as HTMLImageElement;
+    image.onerror = null;
+    image.src = 'https://placehold.co/120x120?text=Gambar+Tidak+Tersedia';
+  }
 
   addToCart(product: Product): void {
     const added = this.cartService.addProduct(product);
