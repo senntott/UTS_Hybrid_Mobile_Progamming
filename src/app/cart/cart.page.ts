@@ -28,7 +28,7 @@ export class CartPage implements OnInit, OnDestroy {
     private productService: ProductService,
     private transactionService: TransactionService,
     private changeDetector: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cartSubscription =
@@ -112,6 +112,15 @@ export class CartPage implements OnInit, OnDestroy {
     }
 
     this.cartService.clearCart();
+
     this.message = `Transaksi #${transaction.id} berhasil disimpan.`;
+    this.changeDetector.markForCheck();
+
+    window.alert(
+      `Pembayaran berhasil!\n\n` +
+      `Nomor transaksi: #${transaction.id}\n` +
+      `Total pembayaran: Rp${total.toLocaleString('id-ID')}\n\n` +
+      `Transaksi sudah tersimpan di riwayat.`
+    );
   }
-}
+} 
