@@ -1,48 +1,47 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
-    </ion-buttons>
-
-    <ion-title>Detail Transaksi</ion-title>
-
-    <ion-buttons slot="end">
       <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
     </ion-buttons>
+    <ion-title>Detail Transaksi</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ng-container *ngIf="transaction as item; else transactionNotFound">
-    <ion-card>
+  <!-- Menggunakan Angular Directive *ngIf dengan As alias -->
+  <ng-container *ngIf="transaction; else transactionNotFound">
+    <ion-card class="transaction-card">
       <ion-card-header>
-        <ion-card-subtitle>
-          Transaksi #{{ item.id }}
+        <ion-card-subtitle color="secondary">
+          ID Transaksi: #{{ transaction.id }}
         </ion-card-subtitle>
         <ion-card-title>
-          {{ item.date | date:'dd MMM yyyy, HH:mm' }}
+          {{ transaction.date | date:'dd MMM yyyy, HH:mm' }}
         </ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
-        <ion-list>
-          <ion-item *ngFor="let product of item.items">
+        <ion-list lines="full">
+          <ion-list-header>
+            <ion-label>Daftar Produk Dibeli</ion-label>
+          </ion-list-header>
+
+          <!-- Perulangan item menggunakan Angular Directive *ngFor -->
+          <ion-item *ngFor="let product of transaction.items">
             <ion-label>
               <h2>{{ product.name }}</h2>
-              <p>
-                {{ product.qty }} × Rp{{ product.price | number:'1.0-0' }}
-              </p>
+              <p>{{ product.qty }} pcs × Rp {{ product.price | number:'1.0-0' }}</p>
             </ion-label>
-
-            <ion-note slot="end">
-              Rp{{ product.qty * product.price | number:'1.0-0' }}
+            <ion-note slot="end" color="dark">
+              <strong>Rp {{ product.qty * product.price | number:'1.0-0' }}</strong>
             </ion-note>
           </ion-item>
 
-          <ion-item>
-            <ion-label><strong>Total</strong></ion-label>
+          <!-- Baris Total Pembelanjaan -->
+          <ion-item class="total-row">
+            <ion-label><strong>Total Pembayaran</strong></ion-label>
             <ion-note slot="end" color="success">
-              <strong>Rp{{ item.total | number:'1.0-0' }}</strong>
+              <h2><strong>Rp {{ transaction.total | number:'1.0-0' }}</strong></h2>
             </ion-note>
           </ion-item>
         </ion-list>
@@ -50,10 +49,16 @@
     </ion-card>
   </ng-container>
 
+  <!-- Template Alternatif jika Transaksi Tidak Ditemukan -->
   <ng-template #transactionNotFound>
-    <ion-card>
+    <ion-card class="ion-text-center ion-padding">
       <ion-card-content>
-        Transaksi tidak ditemukan. Kembali ke riwayat transaksi.
+        <ion-icon name="alert-circle-outline" size="large" color="medium"></ion-icon>
+        <h2>Transaksi Tidak Ditemukan</h2>
+        <p>Data transaksi yang Anda cari tidak tersedia atau ID tidak valid.</p>
+        <ion-button expand="block" routerLink="/tabs/transaksi" color="primary" class="ion-margin-top">
+          Kembali ke Riwayat Transaksi
+        </ion-button>
       </ion-card-content>
     </ion-card>
   </ng-template>

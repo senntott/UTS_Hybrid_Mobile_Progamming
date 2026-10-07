@@ -12,6 +12,11 @@ ion-thumbnail img {
   animation: cart-item-enter 300ms ease-out both;
 }
 
+.qty-control {
+  display: flex;
+  align-items: center;
+}
+
 @keyframes cart-item-enter {
   from {
     opacity: 0;

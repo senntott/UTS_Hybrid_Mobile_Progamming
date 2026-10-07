@@ -1,23 +1,18 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
-    </ion-buttons>
-
-    <ion-title>Keranjang</ion-title>
-
-    <ion-buttons slot="end">
       <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
     </ion-buttons>
+    <ion-title>Keranjang</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-note color="success" *ngIf="message">
+  <ion-note color="danger" *ngIf="message">
     {{ message }}
   </ion-note>
 
-  <ion-card *ngIf="items.length === 0">
+  <ion-card *ngIf="items.length == 0">
     <ion-card-content>
       Keranjang masih kosong. Tambahkan produk terlebih dahulu.
     </ion-card-content>
@@ -31,35 +26,41 @@
 
       <ion-label>
         <h2>{{ item.name }}</h2>
-        <p>Rp{{ item.price | number:'1.0-0' }} per barang</p>
-        <p>Subtotal: Rp{{ item.price * item.qty | number:'1.0-0' }}</p>
+        <p>Rp{{ item.price }} per barang</p>
+        <p>Subtotal: Rp{{ item.price * item.qty }}</p>
       </ion-label>
 
-      <ion-button slot="end" fill="clear" aria-label="Kurangi jumlah" (click)="changeQuantity(item, item.qty - 1)">
-        <ion-icon name="remove-circle-outline"></ion-icon>
-      </ion-button>
-
-      <ion-text>{{ item.qty }}</ion-text>
-
-      <ion-button slot="end" fill="clear" aria-label="Tambah jumlah" (click)="changeQuantity(item, item.qty + 1)">
-        <ion-icon name="add-circle-outline"></ion-icon>
-      </ion-button>
-
-      <ion-button slot="end" fill="clear" color="danger" aria-label="Hapus produk dari keranjang"
-        (click)="removeItem(item)">
-        <ion-icon name="trash-outline"></ion-icon>
-      </ion-button>
+      <div slot="end" class="qty-control">
+        <ion-button fill="clear" (click)="changeQuantity(item, item.qty - 1)">
+          <ion-icon name="remove-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-text>{{ item.qty }}</ion-text>
+        <ion-button fill="clear" (click)="changeQuantity(item, item.qty + 1)">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="danger" (click)="removeItem(item)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
     </ion-item>
   </ion-list>
 
   <ion-card *ngIf="items.length > 0">
     <ion-card-content>
       <h2>Total belanja</h2>
-      <h1>Rp{{ total | number:'1.0-0' }}</h1>
-
-      <ion-button expand="block" color="success" [disabled]="items.length === 0" (click)="checkout()">
+      <h1>Rp{{ total }}</h1>
+      <ion-button expand="block" color="success" (click)="checkout()">
         Konfirmasi Transaksi
       </ion-button>
     </ion-card-content>
   </ion-card>
+
+  <ion-alert
+    [isOpen]="showSuccess"
+    header="Pembayaran Berhasil"
+    [subHeader]="'Transaksi #' + lastId"
+    [message]="'Total pembayaran: Rp' + lastTotal"
+    [buttons]="alertButtons"
+    (didDismiss)="showSuccess = false">
+  </ion-alert>
 </ion-content>
