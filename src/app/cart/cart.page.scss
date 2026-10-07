@@ -1,0 +1,31 @@
+ion-thumbnail {
+  --size: 64px;
+  --border-radius: 8px;
+}
+
+ion-thumbnail img {
+  object-fit: contain;
+  background: var(--ion-color-light);
+}
+
+.cart-item {
+  animation: cart-item-enter 300ms ease-out both;
+}
+
+@keyframes cart-item-enter {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-item {
+    animation: none;
+  }
+}

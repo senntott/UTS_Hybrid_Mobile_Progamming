@@ -24,11 +24,9 @@
   </ion-card>
 
   <ion-list *ngIf="items.length > 0">
-    <ion-item *ngFor="let item of items">
+    <ion-item class="cart-item" *ngFor="let item of items">
       <ion-thumbnail slot="start">
-        <img
-          [src]="item.image || 'assets/empty-product.svg'"
-          [alt]="item.name">
+        <img [src]="item.image || 'assets/empty-product.svg'" [alt]="item.name">
       </ion-thumbnail>
 
       <ion-label>
@@ -37,29 +35,17 @@
         <p>Subtotal: Rp{{ item.price * item.qty | number:'1.0-0' }}</p>
       </ion-label>
 
-      <ion-button
-        slot="end"
-        fill="clear"
-        aria-label="Kurangi jumlah"
-        (click)="changeQuantity(item, item.qty - 1)">
+      <ion-button slot="end" fill="clear" aria-label="Kurangi jumlah" (click)="changeQuantity(item, item.qty - 1)">
         <ion-icon name="remove-circle-outline"></ion-icon>
       </ion-button>
 
       <ion-text>{{ item.qty }}</ion-text>
 
-      <ion-button
-        slot="end"
-        fill="clear"
-        aria-label="Tambah jumlah"
-        (click)="changeQuantity(item, item.qty + 1)">
+      <ion-button slot="end" fill="clear" aria-label="Tambah jumlah" (click)="changeQuantity(item, item.qty + 1)">
         <ion-icon name="add-circle-outline"></ion-icon>
       </ion-button>
 
-      <ion-button
-        slot="end"
-        fill="clear"
-        color="danger"
-        aria-label="Hapus produk dari keranjang"
+      <ion-button slot="end" fill="clear" color="danger" aria-label="Hapus produk dari keranjang"
         (click)="removeItem(item)">
         <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
@@ -71,11 +57,7 @@
       <h2>Total belanja</h2>
       <h1>Rp{{ total | number:'1.0-0' }}</h1>
 
-      <ion-button
-        expand="block"
-        color="success"
-        [disabled]="items.length === 0"
-        (click)="checkout()">
+      <ion-button expand="block" color="success" [disabled]="items.length === 0" (click)="checkout()">
         Konfirmasi Transaksi
       </ion-button>
     </ion-card-content>

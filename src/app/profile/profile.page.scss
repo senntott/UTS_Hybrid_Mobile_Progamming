@@ -1,0 +1,21 @@
+.profile-card {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 88px;
+  height: 88px;
+  margin: 24px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
+  font-size: 42px;
+}
+
+ion-card-content {
+  text-align: left;
+}

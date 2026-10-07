@@ -29,9 +29,27 @@ const routes: Routes = [
             .then(m => m.ProductDetailPageModule)
       },
       {
+        path: 'product-form',
+        loadChildren: () =>
+          import('../product-form/product-form.module')
+            .then(m => m.ProductFormPageModule)
+      },
+      {
+        path: 'product-form/:id',
+        loadChildren: () =>
+          import('../product-form/product-form.module')
+            .then(m => m.ProductFormPageModule)
+      },
+      {
         path: 'cart',
         loadChildren: () =>
           import('../cart/cart.module').then(m => m.CartPageModule)
+      },
+      {
+        path: 'transaction-detail/:id',
+        loadChildren: () =>
+          import('../transaction-detail/transaction-detail.module')
+            .then(m => m.TransactionDetailPageModule)
       },
       {
         path: 'profile',
@@ -65,4 +83,4 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)]
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

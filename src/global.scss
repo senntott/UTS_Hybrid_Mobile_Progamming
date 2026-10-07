@@ -35,3 +35,35 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+
+
+:root {
+    --ion-color-primary: #2f7d32;
+    --ion-color-primary-rgb: 47, 125, 50;
+    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
+    --ion-color-primary-shade: #296e2c;
+    --ion-color-primary-tint: #448a47;
+
+    --ion-color-secondary: #f2c94c;
+    --ion-color-secondary-rgb: 242, 201, 76;
+    --ion-color-secondary-contrast: #222222;
+    --ion-color-secondary-contrast-rgb: 34, 34, 34;
+    --ion-color-secondary-shade: #d5b143;
+    --ion-color-secondary-tint: #f3ce5e;
+}
+
+body.dark {
+    --ion-background-color: #121812;
+    --ion-background-color-rgb: 18, 24, 18;
+    --ion-text-color: #f1f5eb;
+
+    --ion-card-background: #1c251c;
+    --ion-item-background: #1c251c;
+    --ion-toolbar-background: #1c251c;
+
+    --ion-tab-bar-background: #171e17;
+    --ion-tab-bar-color: #b7c5b7;
+    --ion-tab-bar-color-selected: #f2c94c;
+}
