@@ -44,7 +44,7 @@
         <ion-card class="product-card">
           <ion-item button detail [routerLink]="['/tabs/product-detail', product.id]">
             <ion-thumbnail slot="start">
-              <img [src]="product.image || 'assets/empty-product.svg'" [alt]="product.name">
+              <img [src]="product.image" [alt]="product.name" (error)="onProductImageError($event)">
             </ion-thumbnail>
 
             <ion-label>
