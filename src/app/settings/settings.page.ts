@@ -10,14 +10,11 @@ export class SettingsPage implements OnInit {
   darkMode = false;
 
   ngOnInit(): void {
-    this.darkMode = localStorage.getItem('simobile-dark-mode') === 'true';
-    document.body.classList.toggle('dark', this.darkMode);
+    this.darkMode = document.body.classList.contains('dark');
   }
 
   changeTheme(event: any): void {
     this.darkMode = event.detail.checked;
-
     document.body.classList.toggle('dark', this.darkMode);
-    localStorage.setItem('simobile-dark-mode', String(this.darkMode));
   }
 }
