@@ -352,3 +352,7 @@ npm test
 **Framework:** Ionic + Angular
 **Bahasa Pemrograman:** TypeScript
 **Penyimpanan:** LocalStorage
+**Nama:** Jeffersen Harjo Prawiro / 160424069
+**Nama:** Kenny Andrew Limandjaja / 160424068
+**Nama:** Louis Michael Tjoeng / 160424067
+**Nama:** Patrick Axellino Ang / 160424026
